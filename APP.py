@@ -1,6 +1,7 @@
 import streamlit as st
-from tmdb_api import search_movie, format_movie_info
+st.write("API KEY loaded:", bool(os.getenv("TMDB_API_KEY")))
 
+TMDB_API_KEY = "5ba70d355399491611d6e9f9ce0e5377"
 st.title("🎥 Movie Info Chatbot")
 st.caption("Ask me about any movie! Just type the title.")
 # Initialize chat history in session state
