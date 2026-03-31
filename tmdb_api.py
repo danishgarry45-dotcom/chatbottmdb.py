@@ -1,8 +1,8 @@
-
+import requests
 import os
 
 API_KEY = os.getenv("5ba70d355399491611d6e9f9ce0e5377")
-BASE_URL = "https://api.themoviedb.org/3"
+BASE_URL = "https://tmdbchatbot.com"
 def search_movie(title):
     url = f"{BASE_URL}/search/movie"
     params = {"query": title, "api_key": API_KEY}
