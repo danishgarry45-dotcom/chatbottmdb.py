@@ -1,9 +1,9 @@
 import os
 import requests
 
-TMDB_API_KEY = "5ba70d355399491611d6e9f9ce0e5377"
+TMDB_API_KEY = "777d3fabc49a6ab3cdc64b4f657182e0"
 API_KEY = os.getenv("TMDB_API_KEY")
-BASE_URL = "https://api.themoviedb.org/3"
+BASE_URL = "https://tmdbchatbot.com"
 
 def search_movie(title):
     url = f"{BASE_URL}/search/movie"
