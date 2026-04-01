@@ -1,23 +1,17 @@
-import os
 import requests
+import os
 
-TMDB_API_KEY = "ab7d78d61b543d4013e49d7d23a763c5"
-API_KEY = os.getenv("TMDB_API_KEY")
-BASE_URL = "https://tmdbchatbot.com"
-
+API_KEY = "ab7d78d61b543d4013e49d7d23a763c5"
+BASE_URL = "https://api.themoviedb.org/3"
 def search_movie(title):
     url = f"{BASE_URL}/search/movie"
     params = {"query": title, "api_key": API_KEY}
-    try:
-        response = requests.get(url, params=params, timeout=5)
-        response.raise_for_status()
+    response = requests.get(url, params=params)   # This is the API call
+    if response.status_code == 200:
         results = response.json().get("results", [])
         if results:
-            return results[0]
-    except requests.exceptions.RequestException as e:
-        print(f"API error: {e}")
+            return results[0]   # Return the top matching result
     return None
-
 def format_movie_info(movie):
     return (
         f"🎬 **{movie['title']}** ({movie.get('release_date', 'N/A')[:4]})\n\n"
