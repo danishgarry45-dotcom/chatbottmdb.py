@@ -1,7 +1,7 @@
 import os
 import requests
 
-TMDB_API_KEY = "777d3fabc49a6ab3cdc64b4f657182e0"
+TMDB_API_KEY = "ab7d78d61b543d4013e49d7d23a763c5"
 API_KEY = os.getenv("TMDB_API_KEY")
 BASE_URL = "https://tmdbchatbot.com"
 
