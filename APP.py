@@ -3,26 +3,47 @@ from tmdb_api import search_movie, format_movie_info
 
 st.title("🎥 Movie Info Chatbot")
 st.caption("Ask me about any movie! Just type the title.")
-# Initialize chat history in session state
+
+# Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
-# Display the existing conversation history
+
+# Show previous chat messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
+        if msg["role"] == "assistant" and msg.get("poster_url"):
+            st.image(msg["poster_url"], width=200)
         st.markdown(msg["content"])
-# Handle new user input
+
+# User input
 if prompt := st.chat_input("Type a movie title..."):
-    # Display and save the user's message
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    # Save and display user message
+    st.session_state.messages.append({
+        "role": "user",
+        "content": prompt
+    })
+
     with st.chat_message("user"):
         st.markdown(prompt)
-    # Call the API and generate a bot reply
+
+    # Search movie
     movie = search_movie(prompt)
+
     if movie:
-        reply = format_movie_info(movie)
+        reply, poster_url = format_movie_info(movie)
     else:
         reply = f"Sorry, I couldn't find anything for **'{prompt}'**. Try another title!"
-    # Display and save the bot's reply
-    st.session_state.messages.append({"role": "assistant", "content": reply})
+        poster_url = None
+
+    # Save assistant message including poster
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": reply,
+        "poster_url": poster_url
+    })
+
+    # Display assistant message with poster
     with st.chat_message("assistant"):
+        if poster_url:
+            st.image(poster_url, width=200)
         st.markdown(reply)
